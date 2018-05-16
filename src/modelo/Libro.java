@@ -11,12 +11,14 @@ public class Libro implements Legible {
 
 	public Libro() {
 		super();
-		lectura = "JuegoTronos.ddc";
+		this.marca=0;
+		this.actual=0;
+		lectura = "JuegoTronos.txt";
 		paginas = new ArrayList<>();
 	}
-/** 
- * avanza a la siguiente pagina.
- */
+	/**
+	 * avanza a la siguiente pagina.
+	 */
 	@Override
 	public void avanzarPagina() {
 		if (!comprobarUltimaPagina()) {
@@ -25,19 +27,21 @@ public class Libro implements Legible {
 		}
 
 	}
-/**
- * Comprueba que la siguiente pagina existe y la carga
- * @return
- */
+	/**
+	 * Comprueba que la siguiente pagina existe y la carga
+	 * 
+	 * @return
+	 */
 	private boolean cargarSiguientePagina() {
 		anadirPagina();
-		
+
 		return true;
-		
-		}
-	
+
+	}
+
 	/**
 	 * comprueba si es la primera pagina
+	 * 
 	 * @return true es la primera, y false si no lo es.
 	 */
 	private boolean comprobarPrimeraPagina() {
@@ -50,36 +54,38 @@ public class Libro implements Legible {
 
 	/**
 	 * carga la pagina pasada como parametro
+	 * 
 	 * @param pagina
 	 * @return
 	 */
-	
-//	private boolean cargarPagina(int pagina) {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
 
-	
+	// private boolean cargarPagina(int pagina) {
+	// // TODO Auto-generated method stub
+	// return false;
+	// }
+
 	private boolean comprobarUltimaPagina() {
-		return false;
+		//TODO
+		return true;
 	}
-/**
- * Retrocede una pagina
- */
+	/**
+	 * Retrocede una pagina
+	 */
 	@Override
 	public void retrocederPagina() {
-		if(!comprobarPrimeraPagina()) {
-		actual--;
-		}else {
-			System.out.println("no se puede retroceder, estas en la primera pagina");
+		if (!comprobarPrimeraPagina()) {
+			actual--;
+		} else {
+			System.out.println(
+					"no se puede retroceder, estas en la primera pagina");
 		}
 	}
-/**
- * marca la pagina actual
- */
+	/**
+	 * marca la pagina actual
+	 */
 	@Override
 	public void marcarPagina() {
-	this.marca=this.actual;
+		this.marca = this.actual;
 
 	}
 
@@ -88,7 +94,7 @@ public class Libro implements Legible {
 	 */
 	@Override
 	public void irAPagina() {
-	this.actual=this.marca;
+		this.actual = this.marca;
 
 	}
 
@@ -108,17 +114,21 @@ public class Libro implements Legible {
 		return paginas;
 	}
 
-//	public void actualizarTextArea() {
-//		actualizarNumPagina();
-//		Pagina pagina = this.libro.getPaginas().get(this.libro.getActual());
-//		this.textArea.setText(
-//				new AlmacenLibro(this.libro.getLectura()).leer().substring(pagina.getPrimer(), pagina.getUltimo()));
-//	}
-	
+	// public void actualizarTextArea() {
+	// actualizarNumPagina();
+	// Pagina pagina = this.libro.getPaginas().get(this.libro.getActual());
+	// this.textArea.setText(
+	// new
+	// AlmacenLibro(this.libro.getLectura()).leer().substring(pagina.getPrimer(),
+	// pagina.getUltimo()));
+	// }
+
 	private void anadirPagina() {
 		int numeroCaracteresPagina = 20;
-		int inicioPagina = (actual+1) * numeroCaracteresPagina;
-		int finPagina = (actual+1) * numeroCaracteresPagina + numeroCaracteresPagina;
+		int inicioPagina = (actual + 1) * numeroCaracteresPagina;
+		int finPagina = (actual + 1) * numeroCaracteresPagina
+				+ numeroCaracteresPagina;
 		this.paginas.add(new Pagina(inicioPagina, finPagina));
 	}
+	
 }

@@ -77,15 +77,6 @@ public class UI extends JFrame {
 		panel.add(lblNumeroPagina);
 
 	}
-	@Override
-	public JPanel getContentPane() {
-		return contentPane;
-	}
-
-	public void setContentPane(JPanel contentPane) {
-		this.contentPane = contentPane;
-	}
-
 	public JTextArea getTextArea() {
 		return textArea;
 	}

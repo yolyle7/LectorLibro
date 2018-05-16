@@ -23,18 +23,18 @@ public class ParaUI extends UI {
 
 	public void pintarPagina() {
 	File archivo = new File(miLibro.getLectura());
-	if (archivo.exists()) {
 		// Flujo binario para lectura
-		FileInputStream flujoR = null;
-		DataInputStream conversorR = null;
+		FileInputStream flujo = null;
+		DataInputStream conversor = null;
+		
 		try {
 			//textArea.setText("");
-			flujoR = new FileInputStream(archivo);
-			conversorR = new DataInputStream(flujoR);
-			String valor = conversorR.readUTF();
+			flujo = new FileInputStream(archivo);
+			conversor = new DataInputStream(flujo);
+			String valor = conversor.readUTF();
 			while (valor != null) {
 				System.out.println(valor + " ");
-				valor = conversorR.readUTF();
+				valor = conversor.readUTF();
 				
 				textArea.setText(textArea.getText()+valor);
 				
@@ -46,9 +46,15 @@ public class ParaUI extends UI {
 //		} 
 //		catch (EOFException e) {
 //				e.printStackTrace();
+
+			//preguntar!!! estoy intentando hacerlo byte a byte y rellenado las paginas,
+			//pero como se cuando se ha rellenado el text para parar? o sea, saber el fin del fichero
+			
+			
 			}
 		try {
-			flujoR.close();
+			flujo.close();
+			conversor.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -56,7 +62,6 @@ public class ParaUI extends UI {
 	
 }
 
-}
 //public void getTamanoArea() {
 //	System.out.println(this.textArea.getPreferredSize().getHeight());
 //	System.out.println(this.textArea.getHeight());
