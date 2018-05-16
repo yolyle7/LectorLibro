@@ -9,8 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+
+import control.accion.ParaUI;
 
 public class UI extends JFrame {
 
@@ -25,25 +26,13 @@ public class UI extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try
-		{
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		}
-		catch (Exception e1)
-		{
-			e1.printStackTrace();
-		}
-		
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				try
-				{
-					UI frame = new UI();
+				try {
+					ParaUI frame = new ParaUI();
 					frame.setVisible(true);
-				}
-				catch (Exception e)
-				{
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -89,5 +78,61 @@ public class UI extends JFrame {
 		
 						
 	}	
+	@Override
+	public JPanel getContentPane() {
+		return contentPane;
+	}
+
+	public void setContentPane(JPanel contentPane) {
+		this.contentPane = contentPane;
+	}
+
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+
+	public void setTextArea(JTextArea textArea) {
+		this.textArea = textArea;
+	}
+
+	public JButton getBtnAtras() {
+		return btnAtras;
+	}
+
+	public void setBtnAtras(JButton btnAtras) {
+		this.btnAtras = btnAtras;
+	}
+
+	public JButton getBtnMarcar() {
+		return btnMarcar;
+	}
+
+	public void setBtnMarcar(JButton btnMarcar) {
+		this.btnMarcar = btnMarcar;
+	}
+
+	public JButton getBtnIrAMarca() {
+		return btnIrAMarca;
+	}
+
+	public void setBtnIrAMarca(JButton btnIrAMarca) {
+		this.btnIrAMarca = btnIrAMarca;
+	}
+
+	public JLabel getLblNumeroPagina() {
+		return lblNumeroPagina;
+	}
+
+	public void setLblNumeroPagina(JLabel lblNumeroPagina) {
+		this.lblNumeroPagina = lblNumeroPagina;
+	}
+
+	public JButton getBtnAlante() {
+		return btnAlante;
+	}
+
+	public void setBtnAlante(JButton btnAlante) {
+		this.btnAlante = btnAlante;
+	}
 
 }

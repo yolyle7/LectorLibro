@@ -11,7 +11,7 @@ public class Libro implements Legible {
 
 	public Libro() {
 		super();
-		lectura = "JuegoTronos.txt";
+		lectura = "JuegoTronos.ddc";
 		paginas = new ArrayList<>();
 	}
 /** 
@@ -32,7 +32,7 @@ public class Libro implements Legible {
 	private boolean cargarSiguientePagina() {
 		anadirPagina();
 		
-		return false;
+		return true;
 		
 		}
 	
