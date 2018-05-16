@@ -16,12 +16,12 @@ import control.accion.ParaUI;
 public class UI extends JFrame {
 
 	private JPanel contentPane;
-	protected JTextArea textArea;
-	protected JButton btnAtras;
-	protected JButton btnMarcar;
-	protected JButton btnIrAMarca;
-	protected JLabel lblNumeroPagina;
-	protected JButton btnAlante;
+	private JTextArea textArea;
+	private JButton btnAtras;
+	private JButton btnMarcar;
+	private JButton btnIrAMarca;
+	private JLabel lblNumeroPagina;
+	private JButton btnAlante;
 	/**
 	 * Launch the application.
 	 */

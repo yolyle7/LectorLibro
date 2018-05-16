@@ -34,7 +34,6 @@ public class Libro implements Legible {
 	 */
 	private boolean cargarSiguientePagina() {
 		anadirPagina();
-
 		return true;
 
 	}

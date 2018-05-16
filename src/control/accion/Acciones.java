@@ -1,53 +1,39 @@
 package control.accion;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JTextArea;
 
-import javax.swing.JButton;
+import modelo.Acceso;
+import modelo.Libro;
 
-public class Acciones implements ActionListener{
+public class Acciones  {
 
-	private ParaUI paraUI;
+	private Acceso acceso = new Acceso();
 
-	public Acciones(ParaUI paraUI) {
-		this.paraUI = paraUI;
-		
+	public Acciones() {
+
 		System.out.println("aki contructor acciones");
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		JButton boton = (JButton) e.getSource();
-		if (boton.getName().equals("btnAlante")) {
-
-			paraUI.pintarPagina();
-			//libro.retrocederPagina();
-		
-			paraUI.miLibro.avanzarPagina();
-			
-			System.out.println("aki avanzar pagina");
-			
-			//ParaUI.pintarPagina();
-
-		} else if (boton.getName().equals("btnAtras")) {
-
-			paraUI.miLibro.retrocederPagina();
-
-		} else if (boton.getName().equals("btnMarcar")) {
-
-			paraUI.miLibro.marcarPagina();
-
-		} else if (boton.getName().equals("btnIrAMarca")) {
-
-		//	libro.irAMarca();
-			
-			
-				
-		//	panel.add(lblNumeroPagina);	
-
-		}
-
-	}
-		
+	public void avanzarPagina(Libro miLibro, JTextArea area) {
+		miLibro.avanzarPagina();
+		area.setText("");
+		acceso.pintarPagina(miLibro, area);
 	}
 
+	public void retrocederPagina(Libro miLibro, JTextArea area) {
+		miLibro.retrocederPagina();
+		area.setText("");
+		acceso.pintarPagina(miLibro, area);
+	}
+
+	public void marcarPagina(Libro miLibro) {
+		miLibro.marcarPagina();
+	}
+
+	public void irAPagina(Libro miLibro, JTextArea area) {
+		miLibro.irAPagina();
+		area.setText("");
+		acceso.pintarPagina(miLibro, area);
+	}
+
+}

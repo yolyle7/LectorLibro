@@ -1,70 +1,68 @@
 package control.accion;
 
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import modelo.Libro;
 import vista.UI;
 
 public class ParaUI extends UI {
 
-	
-	protected Libro miLibro;
-	
-		public ParaUI() {
+	private Libro miLibro = new Libro();
+	Acciones acciones = new Acciones();
+
+	public ParaUI() {
 		super();
-		this.miLibro= new Libro();
-		pintarPagina();
-	}
 
+		getBtnAlante().addActionListener(new ActionListener() {
 
-	public void pintarPagina() {
-	File archivo = new File(miLibro.getLectura());
-		// Flujo binario para lectura
-		FileInputStream flujo = null;
-		DataInputStream conversor = null;
-		
-		try {
-			//textArea.setText("");
-			flujo = new FileInputStream(archivo);
-			conversor = new DataInputStream(flujo);
-			String valor = conversor.readUTF();
-			while (valor != null) {
-				System.out.println(valor + " ");
-				valor = conversor.readUTF();
-				//jokml
-				textArea.setText(textArea.getText()+valor);
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				acciones.avanzarPagina(miLibro, getTextArea());
+
+			}
+		});
+
+		getBtnAtras().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				acciones.retrocederPagina(miLibro, getTextArea());
+
+			}
+		});
+		getBtnIrAMarca().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				acciones.irAPagina(miLibro, getTextArea());
+
+			}
+		});
+		getBtnMarcar().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				acciones.marcarPagina(miLibro);
 				
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-//		} 
-//		catch (EOFException e) {
-//				e.printStackTrace();
+		});
 
-			//preguntar!!! estoy intentando hacerlo byte a byte y rellenado las paginas,
-			//pero como se cuando se ha rellenado el text para parar? o sea, saber el fin del fichero
-			
-			
-			}
-		try {
-			flujo.close();
-			conversor.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
-	
+
+	public Libro getMiLibro() {
+		return miLibro;
+	}
+
+	public void setMiLibro(Libro miLibro) {
+		this.miLibro = miLibro;
+	}
+
 }
 
-//public void getTamanoArea() {
-//	System.out.println(this.textArea.getPreferredSize().getHeight());
-//	System.out.println(this.textArea.getHeight());
-//	System.out.println(this.textArea.getPreferredSize().getWidth());
-//	System.out.println(this.textArea.getWidth());
-//}
+// public void getTamanoArea() {
+// System.out.println(this.textArea.getPreferredSize().getHeight());
+// System.out.println(this.textArea.getHeight());
+// System.out.println(this.textArea.getPreferredSize().getWidth());
+// System.out.println(this.textArea.getWidth());
+// }
