@@ -35,7 +35,7 @@ public class ParaUI extends UI {
 			while (valor != null) {
 				System.out.println(valor + " ");
 				valor = conversor.readUTF();
-				
+				//jokml
 				textArea.setText(textArea.getText()+valor);
 				
 			}
