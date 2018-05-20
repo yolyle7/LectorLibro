@@ -8,10 +8,20 @@ import java.io.InputStreamReader;
 import javax.swing.JTextArea;
 
 public class Acceso {
-
+	//private Acciones acciones = new Acciones();
+	
 	public void pintarPagina(Libro miLibro, JTextArea textArea) {
 
 		try {
+			if (miLibro.siPintarMarca(textArea)) {
+				miLibro.pintarMarca(textArea);
+			}else {
+				miLibro.despintarMarca(textArea);
+			}
+				
+			
+			
+			
 			FileInputStream reader = new FileInputStream(miLibro.getLectura());
 			InputStreamReader data = new InputStreamReader(reader, "UTF-8");
 			StringBuilder cadena = new StringBuilder();
@@ -21,8 +31,11 @@ public class Acceso {
 			int count = 0;
 			long paginaActual = 0;
 			long inicioPagActual = 0;
+			
+			System.out.println("Pagina actual en libro: " + miLibro.getPagActual() + " Marca: " + miLibro.getMarca() + "Variable actual: "+ miLibro.getActual());
+			
 			if (!miLibro.comprobarPrimeraPagina()) {
-				inicioPagActual = miLibro.getPaginas().get(miLibro.getPagActual())
+				inicioPagActual = miLibro.getPaginas().get(miLibro.getPagActual()-1)
 						.getUltimo();
 			}
 			data.skip(inicioPagActual);
@@ -48,7 +61,7 @@ public class Acceso {
 			// (count<5000);
 
 			if (!miLibro.comprobarPrimeraPagina()) {
-				paginaActual = miLibro.getPaginas().get(miLibro.getPagActual())
+				paginaActual = miLibro.getPaginas().get(miLibro.getPagActual()-1)
 						.getUltimo();
 				miLibro.anadirPagina(paginaActual,
 						paginaActual + cadena.length());
@@ -61,7 +74,8 @@ public class Acceso {
 
 			long longitud = cadena.length();
 
-			System.out.println("Pagina actual: " + paginaActual + "Longitud: " + longitud);
+			System.out.println("Inicio de Pagina: " + paginaActual + "Longitud: " + longitud);
+			System.out.println("Pagina actual en libro: " + miLibro.getPagActual() + " Marca: " + miLibro.getMarca() + "Variable actual: "+ miLibro.getActual());
 
 			reader.close();
 			data.close();

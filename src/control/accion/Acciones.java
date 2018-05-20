@@ -14,28 +14,27 @@ public class Acciones {
 		System.out.println("aki contructor acciones");
 	}
 
-
-	public void avanzarPagina(Libro miLibro, JTextArea area) {
-		area.setText("");
-		acceso.pintarPagina(miLibro, area);
+	public void avanzarPagina(Libro miLibro, JTextArea textArea) {
+		textArea.setText("");
 		miLibro.avanzarPagina();
-		
+		acceso.pintarPagina(miLibro, textArea);
 	}
 
-	public void retrocederPagina(Libro miLibro, JTextArea area) {
-		area.setText("");
-		acceso.pintarPagina(miLibro, area);
+	public void retrocederPagina(Libro miLibro, JTextArea textArea) {
+		textArea.setText("");
 		miLibro.retrocederPagina();
+		acceso.pintarPagina(miLibro, textArea);
 	}
 
-	public void marcarPagina(Libro miLibro) {
+	public void marcarPagina(Libro miLibro, JTextArea textArea) {
 		miLibro.marcarPagina();
+		miLibro.pintarMarca(textArea);
 	}
 
-	public void irAPagina(Libro miLibro, JTextArea area) {
+	public void irAPagina(Libro miLibro, JTextArea textArea) {
 		miLibro.irAPagina();
-		area.setText("");
-		acceso.pintarPagina(miLibro, area);
+		textArea.setText("");
+		acceso.pintarPagina(miLibro, textArea);
 	}
 
 }

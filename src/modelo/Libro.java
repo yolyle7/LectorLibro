@@ -1,21 +1,25 @@
 package modelo;
 
+import java.awt.Color;
 import java.util.ArrayList;
+
+import javax.swing.JTextArea;
 
 public class Libro implements Legible {
 
 	private String lectura;
 	private int actual = 0;
-	private int marca = 0;
-	private int ultima=-1;
+	private int marca = -1;
+	private int ultima = -1;
 	private ArrayList<Pagina> paginas;
 
 	public Libro() {
 		super();
-		this.marca = 0;
+		this.marca = -1;
 		this.actual = 0;
 		lectura = "JuegoTronos.txt";
 		paginas = new ArrayList<>();
+		paginas.add(new Pagina(0, 0));
 	}
 	/**
 	 * avanza a la siguiente pagina.
@@ -34,9 +38,9 @@ public class Libro implements Legible {
 	 * @return
 	 */
 	private boolean cargarSiguientePagina() {
-		if(comprobarUltimaPagina()) {
-		return false;
-		}else {
+		if (comprobarUltimaPagina()) {
+			return false;
+		} else {
 			return true;
 		}
 
@@ -54,7 +58,7 @@ public class Libro implements Legible {
 	 * @return true es la primera, y false si no lo es.
 	 */
 	public boolean comprobarPrimeraPagina() {
-		if (this.actual == 0) {
+		if (this.actual == 1) {
 			return true;
 		} else {
 			return false;
@@ -74,10 +78,10 @@ public class Libro implements Legible {
 	// }
 
 	private boolean comprobarUltimaPagina() {
-		if(ultima == actual) {
+		if (ultima == actual) {
 			return true;
-		}else {
-		return false;
+		} else {
+			return false;
 		}
 	}
 	/**
@@ -98,7 +102,6 @@ public class Libro implements Legible {
 	@Override
 	public void marcarPagina() {
 		this.marca = this.actual;
-
 	}
 
 	/**
@@ -108,6 +111,23 @@ public class Libro implements Legible {
 	public void irAPagina() {
 		this.actual = this.marca;
 
+	}
+	
+	public boolean siPintarMarca (JTextArea textArea) {
+		if(getMarca()==getActual()) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public void pintarMarca(JTextArea textArea) {
+		textArea.setBackground(Color.RED);
+		
+	}
+	public void despintarMarca(JTextArea textArea) {
+		textArea.setBackground(Color.white);
+		
 	}
 
 	public String getLectura() {
@@ -119,7 +139,7 @@ public class Libro implements Legible {
 	}
 
 	public int getPagActual() {
-		return actual - 1;
+		return actual;
 	}
 
 	public int getMarca() {
@@ -147,7 +167,7 @@ public class Libro implements Legible {
 
 	public void anadirPagina(long inicioPagina, long finPagina) {
 		this.paginas.add(new Pagina(inicioPagina, finPagina));
-
 	}
+	
 
 }

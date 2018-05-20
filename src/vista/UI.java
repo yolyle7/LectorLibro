@@ -18,7 +18,7 @@ import control.accion.ParaUI;
 public class UI extends JFrame {
 
 	private JPanel contentPane;
-	private JTextArea txtrBienvenidoAlLector;
+	private JTextArea textArea;
 	private JButton btnAtras;
 	private JButton btnMarcar;
 	private JButton btnIrAMarca;
@@ -55,16 +55,16 @@ public class UI extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
-		txtrBienvenidoAlLector = new JTextArea(
+		textArea = new JTextArea(
 				"\r\n\r\n\r\n\r\n    Bienvenido al lector de libros de\n\n\n\n                           Yolanda\n\n\n\n\n\n\n\n             Pulse >> para continuar",
 				1, 1);
-		txtrBienvenidoAlLector.setFont(new Font("Eagle Lake", Font.PLAIN, 13));
+		textArea.setFont(new Font("Eagle Lake", Font.PLAIN, 13));
 	
 		// textArea.setPreferredSize(new Dimension(1, 1));
-		txtrBienvenidoAlLector.setToolTipText("");
-		txtrBienvenidoAlLector.setLineWrap(true);
-		txtrBienvenidoAlLector.setWrapStyleWord(true);
-		contentPane.add(txtrBienvenidoAlLector, BorderLayout.CENTER);
+		textArea.setToolTipText("");
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		contentPane.add(textArea, BorderLayout.CENTER);
 
 		// Panel de botones
 		JPanel panel = new JPanel();
@@ -91,11 +91,11 @@ public class UI extends JFrame {
 
 	}
 	public JTextArea getTextArea() {
-		return txtrBienvenidoAlLector;
+		return textArea;
 	}
 
 	public void setTextArea(JTextArea textArea) {
-		this.txtrBienvenidoAlLector = textArea;
+		this.textArea = textArea;
 	}
 
 	public JButton getBtnAtras() {

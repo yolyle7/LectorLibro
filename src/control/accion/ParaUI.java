@@ -46,8 +46,8 @@ public class ParaUI extends UI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				acciones.marcarPagina(miLibro);
-
+				acciones.marcarPagina(miLibro,getTextArea());
+				
 			}
 		});
 
