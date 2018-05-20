@@ -11,7 +11,6 @@ public class Acciones {
 
 	public Acciones() {
 
-		System.out.println("aki contructor acciones");
 	}
 
 	public void avanzarPagina(Libro miLibro, JTextArea textArea) {
@@ -32,9 +31,11 @@ public class Acciones {
 	}
 
 	public void irAPagina(Libro miLibro, JTextArea textArea) {
-		miLibro.irAPagina();
-		textArea.setText("");
-		acceso.pintarPagina(miLibro, textArea);
+		if (miLibro.siPaginaMarcada()) {
+			miLibro.irAPagina();
+			textArea.setText("");
+			acceso.pintarPagina(miLibro, textArea);
+		}
 	}
 
 }

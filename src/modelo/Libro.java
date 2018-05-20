@@ -3,6 +3,7 @@ package modelo;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 public class Libro implements Legible {
@@ -33,7 +34,7 @@ public class Libro implements Legible {
 
 	}
 	/**
-	 * Comprueba que la siguiente pagina existe y la carga
+	 * Comprueba que la siguiente pagina existe
 	 * 
 	 * @return
 	 */
@@ -66,17 +67,10 @@ public class Libro implements Legible {
 	}
 
 	/**
-	 * carga la pagina pasada como parametro
-	 * 
-	 * @param pagina
-	 * @return
+	 * Comprueba si es la ultima pagina
+	 *
+	 * @return true si lo es, y false si no.
 	 */
-
-	// private boolean cargarPagina(int pagina) {
-	// // TODO Auto-generated method stub
-	// return false;
-	// }
-
 	private boolean comprobarUltimaPagina() {
 		if (ultima == actual) {
 			return true;
@@ -85,15 +79,16 @@ public class Libro implements Legible {
 		}
 	}
 	/**
-	 * Retrocede una pagina
+	 * Retrocede una pagina y muestra una ventana emergente informado de que no
+	 * se puede retroceder por estar en la primera pagina
 	 */
 	@Override
 	public void retrocederPagina() {
 		if (!comprobarPrimeraPagina()) {
 			actual--;
 		} else {
-			System.out.println(
-					"no se puede retroceder, estas en la primera pagina");
+			JOptionPane.showMessageDialog(null,
+					"NO PUEDES RETROCEDER, ESTÁS EN LA PRIMERA PÁGINA");
 		}
 	}
 	/**
@@ -110,24 +105,47 @@ public class Libro implements Legible {
 	@Override
 	public void irAPagina() {
 		this.actual = this.marca;
-
 	}
-	
-	public boolean siPintarMarca (JTextArea textArea) {
-		if(getMarca()==getActual()) {
+
+	public boolean siPaginaMarcada() {
+		if (marca == -1) {
+			JOptionPane.showMessageDialog(null,
+					"NO TIENES NINGUNA PÁGINA MARCADA");
+			return false;
+		} else {
 			return true;
-		}else {
+		}
+	}
+
+	/**
+	 * Comprueba si la página actual está marcada
+	 * 
+	 * @return true si es la página marcada, y false si no lo es.
+	 */
+	public boolean siPintarMarca(JTextArea textArea) {
+		if (getMarca() == getActual()) {
+			return true;
+		} else {
 			return false;
 		}
 	}
-	
+	/**
+	 * Le pasa el JtextArea y le cambia el color del Background a gris
+	 * 
+	 * @param textArea
+	 */
 	public void pintarMarca(JTextArea textArea) {
-		textArea.setBackground(Color.RED);
-		
+		textArea.setBackground(Color.LIGHT_GRAY);
+
 	}
+	/**
+	 * Le pasa el JtextArea y le cambia el color del Background a blanco.
+	 * 
+	 * @param textArea
+	 */
 	public void despintarMarca(JTextArea textArea) {
 		textArea.setBackground(Color.white);
-		
+
 	}
 
 	public String getLectura() {
@@ -145,29 +163,21 @@ public class Libro implements Legible {
 	public int getMarca() {
 		return marca;
 	}
-
+	/**
+	 * Devuelve el array de páginas
+	 * 
+	 * @return
+	 */
 	public ArrayList<Pagina> getPaginas() {
 		return paginas;
 	}
-	// public boolean actualizarPaginaActual(long primer, long ultimo) {
-	// int actual=this.getActual();
-	// this.paginas[actual]
-	// return true;
-	//
-	// }
-
-	// public void actualizarTextArea() {
-	// actualizarNumPagina();
-	// Pagina pagina = this.libro.getPaginas().get(this.libro.getActual());
-	// this.textArea.setText(
-	// new
-	// AlmacenLibro(this.libro.getLectura()).leer().substring(pagina.getPrimer(),
-	// pagina.getUltimo()));
-	// }
-
+	/**
+	 * Añade una nueva página al libro
+	 * 
+	 * @param inicioPagina
+	 * @param finPagina
+	 */
 	public void anadirPagina(long inicioPagina, long finPagina) {
 		this.paginas.add(new Pagina(inicioPagina, finPagina));
 	}
-	
-
 }

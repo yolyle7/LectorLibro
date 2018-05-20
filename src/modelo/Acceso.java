@@ -5,80 +5,93 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
 public class Acceso {
-	//private Acciones acciones = new Acciones();
-	
+	/**
+	 * Va leyendo el libro y va rellendando el textArea comprobando byte a byte y comprobando si lo puede escribir.
+	 * Ademas, va añadiendo las páginas al libro.
+	 * @param miLibro
+	 * @param textArea
+	 */
 	public void pintarPagina(Libro miLibro, JTextArea textArea) {
 
 		try {
 			if (miLibro.siPintarMarca(textArea)) {
 				miLibro.pintarMarca(textArea);
-			}else {
+			} else {
 				miLibro.despintarMarca(textArea);
 			}
-				
-			
-			
 			
 			FileInputStream reader = new FileInputStream(miLibro.getLectura());
 			InputStreamReader data = new InputStreamReader(reader, "UTF-8");
 			StringBuilder cadena = new StringBuilder();
 
-			boolean fin = false;
 			char[] uno = new char[1];
-			int count = 0;
-			long paginaActual = 0;
 			long inicioPagActual = 0;
+			boolean fin = false;
+			int finfichero = 0;
+//			System.out.println("Pagina actual en libro: "
+//					+ miLibro.getPagActual() + " Marca: " + miLibro.getMarca()
+//					+ "Variable actual: " + miLibro.getActual());
 			
-			System.out.println("Pagina actual en libro: " + miLibro.getPagActual() + " Marca: " + miLibro.getMarca() + "Variable actual: "+ miLibro.getActual());
-			
+			//si no es la primera pagina cojo el fin de la página anterior, le sumo 1 y ese es el incio de la nueva 
+			//página actual
 			if (!miLibro.comprobarPrimeraPagina()) {
-				inicioPagActual = miLibro.getPaginas().get(miLibro.getPagActual()-1)
-						.getUltimo();
+				inicioPagActual = (miLibro.getPaginas()
+						.get(miLibro.getPagActual() - 1).getUltimo())+1;
 			}
 			data.skip(inicioPagActual);
 			do {
-				
-				data.read(uno);
-				String temporal = new String(uno);
-				// stringbuilder
-				cadena.append(temporal);
-				if(textArea.getPreferredSize().getHeight() <= textArea
-						.getHeight())
-				textArea.setText(cadena.toString());
-				// cadena.toString()
-				count++;
-				double prefsizeheigt = textArea.getPreferredSize().getHeight();
-				int heigt = textArea.getHeight();
-				System.out.println("este es el preferentsize " + prefsizeheigt
-						+ " y este el heigt " + heigt);
 
-			} while (textArea.getPreferredSize().getHeight() <= textArea
-					.getHeight());
+				finfichero = data.read(uno);
 
-			// (count<5000);
+				if (!(finfichero == -1)) {
+
+					System.out.println("CONTINUO");
+
+					String temporal = new String(uno);
+
+					// stringbuilder
+					cadena.append(temporal);
+					//if (textArea.getPreferredSize().getHeight() < textArea.getHeight())
+						textArea.setText(cadena.toString());
+//					double prefsizeheigt = textArea.getPreferredSize()
+//							.getHeight();
+//					int heigt = textArea.getHeight();
+//					System.out.println("este es el preferentsize "
+//							+ prefsizeheigt + " y este el heigt " + heigt);
+				} else {
+					System.out.println("FINAL FICHERO");
+					fin=true;
+					miLibro.setUltima(miLibro.getActual());
+					JOptionPane.showMessageDialog(null,"FIN DE LIBRO"); 
+				}
+				//la condicion es que sigo leyendo caracteres hasta que ve que no cabe en el textArea, voy viendo que el 
+				//tamaño de la ventana ya escrita, sea menor que el tamañao de la altura de textarea
+			} while ((textArea.getPreferredSize().getHeight() < textArea
+					.getHeight()) && fin==false);
+			
+			
+			long longitud = cadena.length()-1;
 
 			if (!miLibro.comprobarPrimeraPagina()) {
-				paginaActual = miLibro.getPaginas().get(miLibro.getPagActual()-1)
-						.getUltimo();
-				miLibro.anadirPagina(paginaActual,
-						paginaActual + cadena.length());
+				miLibro.anadirPagina(inicioPagActual,
+						inicioPagActual + longitud);
+			} else {
+				miLibro.anadirPagina(0, longitud);
 			}
 
-			else {
-				miLibro.anadirPagina(0, cadena.length());
-
-			}
-
-			long longitud = cadena.length();
-
-			System.out.println("Inicio de Pagina: " + paginaActual + "Longitud: " + longitud);
-			System.out.println("Pagina actual en libro: " + miLibro.getPagActual() + " Marca: " + miLibro.getMarca() + "Variable actual: "+ miLibro.getActual());
+			System.out.println("Inicio de Pagina: " + inicioPagActual
+					+ "Longitud: " + longitud);
+			System.out.println("Pagina actual en libro: "
+					+ miLibro.getPagActual() + " Marca: " + miLibro.getMarca()
+					+ "Variable actual: " + miLibro.getActual());
 
 			reader.close();
 			data.close();
+
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {
@@ -92,19 +105,3 @@ public class Acceso {
 	}
 
 }
-
-// PAra hacer la conversion es mejor usar el flujo y convertir en el mismo, tal
-// que asi
-// FileInputStream reader = new FileInputStream("JuegoTronos.txt");
-// InputStreamReader data=new InputStreamReader(reader, "UTF8");
-// boolean fin=false;
-// char[] uno = new char[1];
-// do {
-// data.read(uno);
-//
-// String temporal = new String(uno);
-// //stringbuilder
-// cadena.append(temporal);
-// textArea.setText(cadena.toString());
-//
-// } while (textArea.getPreferredSize().getHeight() < textArea.getHeight());
