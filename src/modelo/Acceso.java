@@ -61,8 +61,7 @@ public class Acceso {
 
 			long longitud = cadena.length();
 
-			System.out.println(
-					"Pagina actual: " + paginaActual + "Longitud: " + longitud);
+			System.out.println("Pagina actual: " + paginaActual + "Longitud: " + longitud);
 
 			reader.close();
 			data.close();

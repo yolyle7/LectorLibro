@@ -1,6 +1,7 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +29,7 @@ public class LegibleTest {
 	@Test
 	public void testRetrocederPagina() {
 		fail("Not yet implemented");
+		//hay que comprobar que no se la primera pagina para poder retroceder
 	}
 
 	@Test
