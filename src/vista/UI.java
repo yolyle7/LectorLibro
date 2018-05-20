@@ -1,7 +1,6 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JButton;
@@ -53,8 +52,11 @@ public class UI extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
-		textArea = new JTextArea();
-		textArea.setPreferredSize(new Dimension(4, 2));
+		textArea = new JTextArea(
+				"\n\n\n\n\n      BIENVENIDO A LECTOR DE LIBROS DE YOLANDA\n\n\n\n\n\n\n VAS A DISFRUTAR DEL MARAVILLOSO LIBRO DE\n"
+						+ " JUEGO DE TRONOS, CANCION DE HIELO Y FUEGO. \n\n\n\n\n\n\n\n\n PULSA SIGUIENTE PARA CONTINUAR ",
+				1, 1);
+		// textArea.setPreferredSize(new Dimension(1, 1));
 		textArea.setToolTipText("");
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
@@ -68,7 +70,7 @@ public class UI extends JFrame {
 		btnAtras = new JButton("<<");
 		btnAlante = new JButton(">>");
 		btnMarcar = new JButton("Marcar");
-		btnIrAMarca = new JButton("Ir a Marca");
+		btnIrAMarca = new JButton("Ir a");
 
 		panel.add(btnAtras);
 		panel.add(btnMarcar);
@@ -113,8 +115,8 @@ public class UI extends JFrame {
 		return lblNumeroPagina;
 	}
 
-	public void setLblNumeroPagina(JLabel lblNumeroPagina) {
-		this.lblNumeroPagina = lblNumeroPagina;
+	public void setLblNumeroPagina(String text) {
+		this.lblNumeroPagina.setText(text);
 	}
 
 	public JButton getBtnAlante() {
@@ -124,5 +126,4 @@ public class UI extends JFrame {
 	public void setBtnAlante(JButton btnAlante) {
 		this.btnAlante = btnAlante;
 	}
-
 }

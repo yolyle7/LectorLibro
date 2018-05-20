@@ -1,63 +1,97 @@
 package modelo;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
 
 import javax.swing.JTextArea;
 
 public class Acceso {
-	
-	public void pintarPagina(Libro miLibro, JTextArea textArea) {
-		File archivo = new File(miLibro.getLectura());
-			// Flujo binario para lectura
-			FileInputStream flujo = null;
-			DataInputStream conversor = null;
-			StringBuilder builder = new StringBuilder();
-			Reader reader = null;
-			BufferedReader fin = null;
-		
-			
-			try {
-				//textArea.setText("");
-				flujo = new FileInputStream(archivo);
-				conversor = new DataInputStream(flujo);
-				reader = new InputStreamReader(new FileInputStream(archivo), "UTF-8");
-				fin = new BufferedReader(reader);
-					
-				String valor = conversor.readUTF();
-				while (valor != null) {
-					System.out.println(valor + " ");
-					valor = conversor.readUTF();
-					//streamBuilder
-					textArea.setText(textArea.getText()+valor);
-					
-				}
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-//			} 
-//			catch (EOFException e) {
-//					e.printStackTrace();
 
-				//preguntar!!! estoy intentando hacerlo byte a byte y rellenado las paginas,
-				//pero como se cuando se ha rellenado el text para parar? o sea, saber el fin del fichero
-				
-				
-				}
-			try {
-				flujo.close();
-				conversor.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+	public void pintarPagina(Libro miLibro, JTextArea textArea) {
+
+		try {
+			FileInputStream reader = new FileInputStream(miLibro.getLectura());
+			InputStreamReader data = new InputStreamReader(reader, "UTF-8");
+			StringBuilder cadena = new StringBuilder();
+
+			boolean fin = false;
+			char[] uno = new char[1];
+			int count = 0;
+			long paginaActual = 0;
+			long inicioPagActual = 0;
+			if (!miLibro.comprobarPrimeraPagina()) {
+				inicioPagActual = miLibro.getPaginas().get(miLibro.getPagActual())
+						.getUltimo();
 			}
+			data.skip(inicioPagActual);
+			do {
+				
+				data.read(uno);
+				String temporal = new String(uno);
+				// stringbuilder
+				cadena.append(temporal);
+				if(textArea.getPreferredSize().getHeight() <= textArea
+						.getHeight())
+				textArea.setText(cadena.toString());
+				// cadena.toString()
+				count++;
+				double prefsizeheigt = textArea.getPreferredSize().getHeight();
+				int heigt = textArea.getHeight();
+				System.out.println("este es el preferentsize " + prefsizeheigt
+						+ " y este el heigt " + heigt);
+
+			} while (textArea.getPreferredSize().getHeight() <= textArea
+					.getHeight());
+
+			// (count<5000);
+
+			if (!miLibro.comprobarPrimeraPagina()) {
+				paginaActual = miLibro.getPaginas().get(miLibro.getPagActual())
+						.getUltimo();
+				miLibro.anadirPagina(paginaActual,
+						paginaActual + cadena.length());
+			}
+
+			else {
+				miLibro.anadirPagina(0, cadena.length());
+
+			}
+
+			long longitud = cadena.length();
+
+			System.out.println(
+					"Pagina actual: " + paginaActual + "Longitud: " + longitud);
+
+			reader.close();
+			data.close();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
-		
+		// catch (EOFException e1) {
+		// miLibro.setUltima(miLibro.getActual());
+		//
+		// }
+
 	}
 
+}
+
+// PAra hacer la conversion es mejor usar el flujo y convertir en el mismo, tal
+// que asi
+// FileInputStream reader = new FileInputStream("JuegoTronos.txt");
+// InputStreamReader data=new InputStreamReader(reader, "UTF8");
+// boolean fin=false;
+// char[] uno = new char[1];
+// do {
+// data.read(uno);
+//
+// String temporal = new String(uno);
+// //stringbuilder
+// cadena.append(temporal);
+// textArea.setText(cadena.toString());
+//
+// } while (textArea.getPreferredSize().getHeight() < textArea.getHeight());

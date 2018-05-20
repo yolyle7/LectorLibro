@@ -8,7 +8,7 @@ import vista.UI;
 
 public class ParaUI extends UI {
 
-	private Libro miLibro = new Libro();
+	Libro miLibro = new Libro();
 	Acciones acciones = new Acciones();
 
 	public ParaUI() {
@@ -19,6 +19,7 @@ public class ParaUI extends UI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				acciones.avanzarPagina(miLibro, getTextArea());
+				actulizarLblPagina();
 
 			}
 		});
@@ -28,6 +29,7 @@ public class ParaUI extends UI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				acciones.retrocederPagina(miLibro, getTextArea());
+				actulizarLblPagina();
 
 			}
 		});
@@ -36,17 +38,20 @@ public class ParaUI extends UI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				acciones.irAPagina(miLibro, getTextArea());
+				actulizarLblPagina();
 
 			}
 		});
 		getBtnMarcar().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				acciones.marcarPagina(miLibro);
-				
+
 			}
 		});
+
+		// acciones.pintarPrimeraPagina(miLibro, getTextArea());
 
 	}
 
@@ -58,11 +63,13 @@ public class ParaUI extends UI {
 		this.miLibro = miLibro;
 	}
 
-}
+	public void actulizarLblPagina() {
+		String text = "";
+		text = String.valueOf(miLibro.getActual());
+		// Integer uno = miLibro.getActual();
 
-// public void getTamanoArea() {
-// System.out.println(this.textArea.getPreferredSize().getHeight());
-// System.out.println(this.textArea.getHeight());
-// System.out.println(this.textArea.getPreferredSize().getWidth());
-// System.out.println(this.textArea.getWidth());
-// }
+		setLblNumeroPagina(text);
+
+	}
+
+}

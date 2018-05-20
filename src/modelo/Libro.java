@@ -7,12 +7,13 @@ public class Libro implements Legible {
 	private String lectura;
 	private int actual = 0;
 	private int marca = 0;
+	private int ultima=-1;
 	private ArrayList<Pagina> paginas;
 
 	public Libro() {
 		super();
-		this.marca=0;
-		this.actual=0;
+		this.marca = 0;
+		this.actual = 0;
 		lectura = "JuegoTronos.txt";
 		paginas = new ArrayList<>();
 	}
@@ -33,17 +34,26 @@ public class Libro implements Legible {
 	 * @return
 	 */
 	private boolean cargarSiguientePagina() {
-		anadirPagina();
-		return true;
+		if(comprobarUltimaPagina()) {
+		return false;
+		}else {
+			return true;
+		}
 
 	}
 
+	public int getUltima() {
+		return ultima;
+	}
+	public void setUltima(int ultima) {
+		this.ultima = ultima;
+	}
 	/**
 	 * comprueba si es la primera pagina
 	 * 
 	 * @return true es la primera, y false si no lo es.
 	 */
-	private boolean comprobarPrimeraPagina() {
+	public boolean comprobarPrimeraPagina() {
 		if (this.actual == 0) {
 			return true;
 		} else {
@@ -64,8 +74,11 @@ public class Libro implements Legible {
 	// }
 
 	private boolean comprobarUltimaPagina() {
-		//TODO
-		return true;
+		if(ultima == actual) {
+			return true;
+		}else {
+		return false;
+		}
 	}
 	/**
 	 * Retrocede una pagina
@@ -105,6 +118,10 @@ public class Libro implements Legible {
 		return actual;
 	}
 
+	public int getPagActual() {
+		return actual - 1;
+	}
+
 	public int getMarca() {
 		return marca;
 	}
@@ -112,6 +129,12 @@ public class Libro implements Legible {
 	public ArrayList<Pagina> getPaginas() {
 		return paginas;
 	}
+	// public boolean actualizarPaginaActual(long primer, long ultimo) {
+	// int actual=this.getActual();
+	// this.paginas[actual]
+	// return true;
+	//
+	// }
 
 	// public void actualizarTextArea() {
 	// actualizarNumPagina();
@@ -122,12 +145,9 @@ public class Libro implements Legible {
 	// pagina.getUltimo()));
 	// }
 
-	private void anadirPagina() {
-		int numeroCaracteresPagina = 20;
-		int inicioPagina = (actual + 1) * numeroCaracteresPagina;
-		int finPagina = (actual + 1) * numeroCaracteresPagina
-				+ numeroCaracteresPagina;
+	public void anadirPagina(long inicioPagina, long finPagina) {
 		this.paginas.add(new Pagina(inicioPagina, finPagina));
+
 	}
-	
+
 }

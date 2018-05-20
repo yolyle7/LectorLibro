@@ -5,7 +5,7 @@ import javax.swing.JTextArea;
 import modelo.Acceso;
 import modelo.Libro;
 
-public class Acciones  {
+public class Acciones {
 
 	private Acceso acceso = new Acceso();
 
@@ -14,16 +14,18 @@ public class Acciones  {
 		System.out.println("aki contructor acciones");
 	}
 
+
 	public void avanzarPagina(Libro miLibro, JTextArea area) {
-		miLibro.avanzarPagina();
 		area.setText("");
 		acceso.pintarPagina(miLibro, area);
+		miLibro.avanzarPagina();
+		
 	}
 
 	public void retrocederPagina(Libro miLibro, JTextArea area) {
-		miLibro.retrocederPagina();
 		area.setText("");
 		acceso.pintarPagina(miLibro, area);
+		miLibro.retrocederPagina();
 	}
 
 	public void marcarPagina(Libro miLibro) {
