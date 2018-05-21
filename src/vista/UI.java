@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.SystemColor;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -59,6 +60,9 @@ public class UI extends JFrame {
 		textArea = new JTextArea(
 				"\r\n\r\n\r\n\r\n    Bienvenido al lector de libros de\n\n\n\n                           Yolanda\n\n\n\n\n\n\n\n             Pulse >> para continuar",
 				1, 1);
+		textArea.setDisabledTextColor(SystemColor.desktop);
+		textArea.setEnabled(false);
+		textArea.setForeground(SystemColor.textText);
 		textArea.setFont(new Font("Eagle Lake", Font.PLAIN, 13));
 	
 		// textArea.setPreferredSize(new Dimension(1, 1));
